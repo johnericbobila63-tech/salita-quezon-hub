@@ -3,6 +3,7 @@ import { words } from "@/data/dictionary";
 import { useParams, Link } from "react-router-dom";
 import { Volume2, ArrowLeft, Sparkles } from "lucide-react";
 import { speak } from "@/lib/speak";
+import { VoiceRecorder } from "@/components/VoiceRecorder";
 
 const WordDetail = () => {
   const { id } = useParams();
@@ -22,11 +23,12 @@ const WordDetail = () => {
           <p className="text-lg text-muted-foreground mb-6">/{word.pronunciation}/</p>
 
           <div className="flex flex-wrap gap-3 mb-6">
+            <VoiceRecorder wordKey={`word-${word.id}`} label="My Voice" />
             <button onClick={() => speak(word.word, "female")} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:bg-primary-glow transition-smooth">
-              <Volume2 className="w-4 h-4" /> Listen (Babae)
+              <Volume2 className="w-4 h-4" /> AI (Babae)
             </button>
             <button onClick={() => speak(word.word, "male")} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-ocean text-ocean-foreground hover:opacity-90 transition-smooth">
-              <Volume2 className="w-4 h-4" /> Listen (Lalaki)
+              <Volume2 className="w-4 h-4" /> AI (Lalaki)
             </button>
           </div>
 
