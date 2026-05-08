@@ -11,6 +11,9 @@ import Categories from "./pages/Categories.tsx";
 import Pronunciation from "./pages/Pronunciation.tsx";
 import About from "./pages/About.tsx";
 import Submit from "./pages/Submit.tsx";
+import Welcome from "./pages/Welcome.tsx";
+import Onboarding from "./pages/Onboarding.tsx";
+import { OnboardingGate } from "./components/OnboardingGate";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +24,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/welcome" element={<Welcome />} />
+          <Route path="/onboarding/:step" element={<Onboarding />} />
+          <Route path="/" element={<OnboardingGate><Index /></OnboardingGate>} />
           <Route path="/search" element={<Search />} />
           <Route path="/word/:id" element={<WordDetail />} />
           <Route path="/categories" element={<Categories />} />
