@@ -11,7 +11,7 @@ const STEP_DATA: Record<
   { title: string; subtitle?: string; options: string[]; multi?: boolean; minSelect?: number; allowOther?: boolean }
 > = {
   purpose: {
-    title: "What brings you to Wikang Quezon app?",
+    title: "What brings you to Boses ng Lalawigan app?",
     options: [
       "Learn Quezonian word",
       "Explore Quezonian deep word",
