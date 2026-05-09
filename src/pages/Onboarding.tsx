@@ -94,7 +94,7 @@ const Onboarding = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background px-6 py-6">
+    <div className="min-h-dvh flex flex-col bg-background px-6 pt-safe pb-safe py-6">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <button onClick={handleSkip} className="text-sm text-muted-foreground hover:text-foreground">
