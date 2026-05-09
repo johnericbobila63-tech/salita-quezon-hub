@@ -13,8 +13,8 @@ const STEP_DATA: Record<
   purpose: {
     title: "What brings you to Wikang Quezon app?",
     options: [
-      "Learn Tayabas word",
-      "Explore Tayabas deep word",
+      "Learn Quezonian word",
+      "Explore Quezonian deep word",
       "Engaging in academic studies",
       "Using language for work",
     ],
