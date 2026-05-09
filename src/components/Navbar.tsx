@@ -21,7 +21,7 @@ export const Navbar = () => {
             <Leaf className="w-5 h-5" />
           </span>
           <div className="leading-tight">
-            <div className="font-display text-lg font-semibold">Wikang Quezon</div>
+            <div className="font-display text-lg font-semibold">Boses ng Lalawigan</div>
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground">Diksyunaryo</div>
           </div>
         </Link>
