@@ -98,17 +98,30 @@
 }
 
 @layer base {
+  html, body, #root { height: 100%; }
   * { @apply border-border; }
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     font-feature-settings: 'ss01', 'cv01';
+    overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4, .font-display {
     font-family: 'Fraunces', Georgia, serif;
     font-optical-sizing: auto;
     letter-spacing: -0.02em;
   }
+}
+
+@layer utilities {
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .min-h-dvh { min-height: 100dvh; }
 }
 
 @layer utilities {
