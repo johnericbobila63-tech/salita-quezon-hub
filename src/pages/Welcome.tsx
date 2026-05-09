@@ -4,7 +4,8 @@ import hero from "@/assets/hero-quezon.jpg";
 
 const Welcome = () => {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-between px-6 py-16 overflow-hidden">
+    <div className="relative min-h-dvh flex flex-col items-center justify-between px-6 pt-safe pb-safe overflow-hidden">
+      <div className="h-12" />
       <div className="absolute inset-0 -z-10">
         <img
           src={hero}
@@ -33,7 +34,7 @@ const Welcome = () => {
       </div>
       <Link
         to="/onboarding/purpose"
-        className="w-full max-w-md text-center py-4 rounded-2xl bg-saffron text-saffron-foreground font-semibold text-lg shadow-warm hover:opacity-90 transition-smooth"
+        className="w-full max-w-md text-center py-4 mb-6 rounded-2xl bg-saffron text-saffron-foreground font-semibold text-lg shadow-warm active:scale-[0.98] hover:opacity-90 transition-smooth"
       >
         Get Started
       </Link>
