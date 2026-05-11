@@ -9,6 +9,7 @@ const links = [
   { to: "/pronunciation", label: "Pronunciation" },
   { to: "/about", label: "About" },
   { to: "/submit", label: "Submit a Word" },
+  { to: "/settings", label: "Settings" },
 ];
 
 export const Navbar = () => {
