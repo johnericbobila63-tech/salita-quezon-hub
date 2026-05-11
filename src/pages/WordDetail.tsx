@@ -1,14 +1,22 @@
 import { Layout } from "@/components/Layout";
 import { words } from "@/data/dictionary";
 import { useParams, Link } from "react-router-dom";
-import { Volume2, ArrowLeft, Sparkles } from "lucide-react";
+import { Volume2, ArrowLeft, Sparkles, Bookmark, BookmarkCheck } from "lucide-react";
 import { speak } from "@/lib/speak";
 import { VoiceRecorder } from "@/components/VoiceRecorder";
+import { useSavedWords } from "@/lib/saved";
+import { toast } from "sonner";
 
 const WordDetail = () => {
   const { id } = useParams();
   const word = words.find((w) => w.id === id);
+  const { isSaved, toggle } = useSavedWords();
   if (!word) return <Layout><div className="container py-20 text-center">Word not found.</div></Layout>;
+  const saved = isSaved(word.id);
+  const handleSave = () => {
+    toggle(word.id);
+    toast.success(saved ? `Removed "${word.word}" from saved` : `Saved "${word.word}"`);
+  };
 
   return (
     <Layout>
@@ -29,6 +37,14 @@ const WordDetail = () => {
             </button>
             <button onClick={() => speak(word.word, "male")} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-ocean text-ocean-foreground hover:opacity-90 transition-smooth">
               <Volume2 className="w-4 h-4" /> AI (Lalaki)
+            </button>
+            <button
+              onClick={handleSave}
+              aria-pressed={saved}
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full border transition-smooth ${saved ? "bg-saffron text-saffron-foreground border-transparent" : "border-border hover:bg-muted"}`}
+            >
+              {saved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />}
+              {saved ? "Saved" : "Save"}
             </button>
           </div>
 
