@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { Home, Search, LayoutGrid, Mic, Info } from "lucide-react";
+import { Home, Search, LayoutGrid, Mic, Settings as SettingsIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
@@ -7,7 +7,7 @@ const tabs = [
   { to: "/search", label: "Search", icon: Search },
   { to: "/categories", label: "Categories", icon: LayoutGrid },
   { to: "/pronunciation", label: "Voice", icon: Mic },
-  { to: "/about", label: "About", icon: Info },
+  { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 
 export const BottomNav = () => (

@@ -13,6 +13,8 @@ import About from "./pages/About.tsx";
 import Submit from "./pages/Submit.tsx";
 import Welcome from "./pages/Welcome.tsx";
 import Onboarding from "./pages/Onboarding.tsx";
+import Auth from "./pages/Auth.tsx";
+import Settings from "./pages/Settings.tsx";
 import { OnboardingGate } from "./components/OnboardingGate";
 
 const queryClient = new QueryClient();
@@ -33,6 +35,8 @@ const App = () => (
           <Route path="/pronunciation" element={<Pronunciation />} />
           <Route path="/about" element={<About />} />
           <Route path="/submit" element={<Submit />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
