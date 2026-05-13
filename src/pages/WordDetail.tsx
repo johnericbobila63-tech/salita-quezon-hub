@@ -33,10 +33,7 @@ const WordDetail = () => {
           <div className="flex flex-wrap gap-3 mb-6">
             <VoiceRecorder wordKey={`word-${word.id}`} label="My Voice" />
             <button onClick={() => speak(word.word, "female")} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:bg-primary-glow transition-smooth">
-              <Volume2 className="w-4 h-4" /> AI (Babae)
-            </button>
-            <button onClick={() => speak(word.word, "male")} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-ocean text-ocean-foreground hover:opacity-90 transition-smooth">
-              <Volume2 className="w-4 h-4" /> AI (Lalaki)
+              <Volume2 className="w-4 h-4" /> Listen
             </button>
             <button
               onClick={handleSave}
