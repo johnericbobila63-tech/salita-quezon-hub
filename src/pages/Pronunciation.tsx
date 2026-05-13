@@ -23,10 +23,7 @@ const Pronunciation = () => (
               <div className="text-xs text-muted-foreground">/{w.pronunciation}/ · {w.partOfSpeech}</div>
             </div>
             <div className="flex gap-2">
-              <button onClick={() => speak(w.word, "female")} title="Female voice" className="grid place-items-center w-10 h-10 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-smooth">
-                <Volume2 className="w-4 h-4" />
-              </button>
-              <button onClick={() => speak(w.word, "male")} title="Male voice" className="grid place-items-center w-10 h-10 rounded-full bg-secondary hover:bg-ocean hover:text-ocean-foreground transition-smooth">
+              <button onClick={() => speak(w.word, "female")} title="Listen" className="grid place-items-center w-10 h-10 rounded-full bg-secondary hover:bg-primary hover:text-primary-foreground transition-smooth">
                 <Volume2 className="w-4 h-4" />
               </button>
             </div>
