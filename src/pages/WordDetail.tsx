@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { Volume2, ArrowLeft, Sparkles, Bookmark, BookmarkCheck } from "lucide-react";
 import { speak } from "@/lib/speak";
 import { VoiceRecorder } from "@/components/VoiceRecorder";
+import { PracticePronunciation } from "@/components/PracticePronunciation";
 import { useSavedWords } from "@/lib/saved";
 import { getRecording } from "@/lib/recordings";
 import { toast } from "sonner";
