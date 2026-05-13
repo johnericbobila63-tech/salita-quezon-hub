@@ -86,6 +86,10 @@ const WordDetail = () => {
           </div>
         </header>
 
+        <div className="mb-8">
+          <PracticePronunciation target={word.word} />
+        </div>
+
         <section className="bg-card rounded-3xl border border-border p-8 md:p-10 mb-8">
           <h2 className="font-display text-2xl mb-6">Halimbawa · Examples</h2>
           <div className="space-y-6">
