@@ -4,6 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import { Volume2, ArrowLeft, Sparkles, Bookmark, BookmarkCheck } from "lucide-react";
 import { speak } from "@/lib/speak";
 import { VoiceRecorder } from "@/components/VoiceRecorder";
+import { PracticePronunciation } from "@/components/PracticePronunciation";
 import { useSavedWords } from "@/lib/saved";
 import { getRecording } from "@/lib/recordings";
 import { toast } from "sonner";
@@ -84,6 +85,10 @@ const WordDetail = () => {
             </div>
           </div>
         </header>
+
+        <div className="mb-8">
+          <PracticePronunciation target={word.word} />
+        </div>
 
         <section className="bg-card rounded-3xl border border-border p-8 md:p-10 mb-8">
           <h2 className="font-display text-2xl mb-6">Halimbawa · Examples</h2>
