@@ -58,8 +58,8 @@ const WordDetail = () => {
 
           <div className="flex flex-wrap gap-3 mb-6">
             <VoiceRecorder wordKey={`word-${word.id}`} label="My Voice" />
-            <button onClick={() => speak(word.word, "female")} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:bg-primary-glow transition-smooth">
-              <Volume2 className="w-4 h-4" /> Listen
+            <button onClick={handleListen} disabled={playing} className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-primary text-primary-foreground hover:bg-primary-glow transition-smooth disabled:opacity-60">
+              <Volume2 className="w-4 h-4" /> {playing ? "Playing…" : hasRecording ? "Listen (My Voice)" : "Listen"}
             </button>
             <button
               onClick={handleSave}
