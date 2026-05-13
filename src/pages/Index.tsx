@@ -7,10 +7,18 @@ import pattern from "@/assets/pattern-kiping.jpg";
 import { Link } from "react-router-dom";
 import { Sparkles, BookOpen, Mic, Heart } from "lucide-react";
 import { speak } from "@/lib/speak";
+import { useMemo } from "react";
 
 const Index = () => {
-  const wordOfDay = words[0];
-  const featured = words.slice(1, 5);
+  const wordOfDay = useMemo(() => words[Math.floor(Math.random() * words.length)], []);
+  const featured = useMemo(() => {
+    const pool = words.filter((w) => w.id !== wordOfDay.id);
+    for (let i = pool.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool.slice(0, 4);
+  }, [wordOfDay.id]);
 
   return (
     <Layout>
