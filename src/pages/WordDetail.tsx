@@ -5,17 +5,43 @@ import { Volume2, ArrowLeft, Sparkles, Bookmark, BookmarkCheck } from "lucide-re
 import { speak } from "@/lib/speak";
 import { VoiceRecorder } from "@/components/VoiceRecorder";
 import { useSavedWords } from "@/lib/saved";
+import { getRecording } from "@/lib/recordings";
 import { toast } from "sonner";
+import { useEffect, useRef, useState } from "react";
 
 const WordDetail = () => {
   const { id } = useParams();
   const word = words.find((w) => w.id === id);
   const { isSaved, toggle } = useSavedWords();
+  const [hasRecording, setHasRecording] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    if (!word) return;
+    getRecording(`word-${word.id}`).then((b) => setHasRecording(!!b));
+  }, [word?.id]);
+
   if (!word) return <Layout><div className="container py-20 text-center">Word not found.</div></Layout>;
   const saved = isSaved(word.id);
   const handleSave = () => {
     toggle(word.id);
     toast.success(saved ? `Removed "${word.word}" from saved` : `Saved "${word.word}"`);
+  };
+
+  const handleListen = async () => {
+    const blob = await getRecording(`word-${word.id}`);
+    if (blob) {
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      setPlaying(true);
+      audio.onended = () => { setPlaying(false); URL.revokeObjectURL(url); };
+      audio.play();
+    } else {
+      toast.info("No recording yet — using AI voice. Record your own below!");
+      speak(word.word, "female");
+    }
   };
 
   return (
