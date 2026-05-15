@@ -88,14 +88,19 @@ const Index = () => {
           </div>
           <Link to="/categories" className="hidden md:block text-sm font-medium text-primary hover:underline">View all →</Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {categories.map((c) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {categories.slice(0, 8).map((c) => (
             <Link key={c.id} to={`/categories?c=${c.id}`} className="group bg-card rounded-2xl border border-border p-5 text-center hover:shadow-warm hover:-translate-y-1 transition-smooth">
               <div className="text-4xl mb-3 transition-smooth group-hover:scale-110">{c.icon}</div>
               <div className="font-display font-semibold">{c.name}</div>
               <div className="text-xs text-muted-foreground mt-1">{c.english} · {c.count}</div>
             </Link>
           ))}
+        </div>
+        <div className="mt-8 text-center">
+          <Link to="/categories" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary-glow transition-smooth">
+            See more City →
+          </Link>
         </div>
       </section>
 
