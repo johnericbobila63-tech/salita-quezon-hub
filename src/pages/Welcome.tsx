@@ -20,13 +20,13 @@ const Welcome = () => {
       <div className="flex-1 flex flex-col items-center justify-center text-center animate-fade-up">
         <img
           src={logo}
-          alt="Wikang Quezon logo"
+          alt="Boses ng Lalawigan logo"
           width={180}
           height={180}
           className="w-44 h-44 mb-8 animate-float drop-shadow-2xl"
         />
         <h1 className="font-display text-5xl md:text-6xl font-semibold text-primary-foreground mb-3">
-          Wikang Quezon
+          Boses ng Lalawigan
         </h1>
         <p className="text-primary-foreground/85 text-lg max-w-sm">
           Diksyunaryo ng Lalawigan ng Quezon
