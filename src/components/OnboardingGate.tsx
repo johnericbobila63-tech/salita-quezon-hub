@@ -1,27 +1,24 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
-// Module-level flag: resets on full page refresh, persists across in-app navigation.
-let hasRedirectedThisSession = false;
+import { useNavigate } from "react-router-dom";
 
 export const OnboardingGate = ({ children }: { children: React.ReactNode }) => {
-  const location = useLocation();
   const navigate = useNavigate();
+
   useEffect(() => {
-    const isFreshPageLoad = location.key === "default";
     const canEnterDashboard = sessionStorage.getItem("wq_enter_dashboard") === "1";
+    const navigationEntry = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming | undefined;
+    const isManualRefresh = navigationEntry?.type === "reload";
 
     if (canEnterDashboard) {
-      hasRedirectedThisSession = true;
       sessionStorage.removeItem("wq_enter_dashboard");
       return;
     }
 
-    if (typeof window !== "undefined" && isFreshPageLoad && !hasRedirectedThisSession) {
-      hasRedirectedThisSession = true;
+    if (isManualRefresh) {
       localStorage.removeItem("wq_onboarded");
       navigate("/welcome", { replace: true });
     }
-  }, [location.key, navigate]);
+  }, [navigate]);
+
   return <>{children}</>;
 };
