@@ -78,12 +78,14 @@ const Onboarding = () => {
       setSelections([]);
       setOther("");
     } else {
+      sessionStorage.setItem("wq_enter_dashboard", "1");
       localStorage.setItem("wq_onboarded", "1");
       navigate("/");
     }
   };
 
   const handleSkip = () => {
+    sessionStorage.setItem("wq_enter_dashboard", "1");
     localStorage.setItem("wq_onboarded", "1");
     navigate("/");
   };
