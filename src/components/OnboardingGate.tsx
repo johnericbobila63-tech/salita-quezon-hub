@@ -9,6 +9,14 @@ export const OnboardingGate = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const isFreshPageLoad = location.key === "default";
+    const canEnterDashboard = sessionStorage.getItem("wq_enter_dashboard") === "1";
+
+    if (canEnterDashboard) {
+      hasRedirectedThisSession = true;
+      sessionStorage.removeItem("wq_enter_dashboard");
+      return;
+    }
+
     if (typeof window !== "undefined" && isFreshPageLoad && !hasRedirectedThisSession) {
       hasRedirectedThisSession = true;
       localStorage.removeItem("wq_onboarded");
