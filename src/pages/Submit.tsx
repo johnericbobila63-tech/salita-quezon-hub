@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Mic, Send, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { categories } from "@/data/dictionary";
+
 
 const schema = z.object({
   word: z.string().trim().min(1, "Required").max(60),
