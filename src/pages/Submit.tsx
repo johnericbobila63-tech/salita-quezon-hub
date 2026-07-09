@@ -10,10 +10,12 @@ const schema = z.object({
   word: z.string().trim().min(1, "Required").max(60),
   pronunciation: z.string().trim().max(80).optional().or(z.literal("")),
   category: z.string().min(1),
+  city: z.string().optional().or(z.literal("")),
   definition: z.string().trim().min(10, "Please give a brief definition").max(500),
   example: z.string().trim().max(300).optional().or(z.literal("")),
   contributor: z.string().trim().max(80).optional().or(z.literal("")),
 });
+
 
 const Submit = () => {
   const [submitted, setSubmitted] = useState(false);
