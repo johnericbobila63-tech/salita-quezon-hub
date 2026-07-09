@@ -5,9 +5,10 @@ import { categories, words } from "@/data/dictionary";
 import hero from "@/assets/hero-quezon.jpg";
 import pattern from "@/assets/pattern-kiping.jpg";
 import { Link } from "react-router-dom";
-import { Sparkles, BookOpen, Mic, Heart } from "lucide-react";
+import { Sparkles, BookOpen, Mic, Heart, MapPin } from "lucide-react";
 import { speak } from "@/lib/speak";
 import { useMemo } from "react";
+
 
 const Index = () => {
   const wordOfDay = useMemo(() => words[Math.floor(Math.random() * words.length)], []);
