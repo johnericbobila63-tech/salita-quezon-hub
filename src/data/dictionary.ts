@@ -4,6 +4,7 @@ export type WordEntry = {
   pronunciation: string;
   partOfSpeech: string;
   category: string;
+  city?: string;
   definition: string;
   filipino: string;
   english: string;
@@ -13,24 +14,75 @@ export type WordEntry = {
 };
 
 export const categories = [
-  { id: "tayabas", name: "City of Tayabas", english: "Tayabas", icon: "🏙️", count: 0 },
-  { id: "candelaria", name: "Candelaria", english: "Candelaria", icon: "🏘️", count: 0 },
-  { id: "mauban", name: "Mauban", english: "Mauban", icon: "⛰️", count: 0 },
-  { id: "catanauan", name: "Catanauan", english: "Catanauan", icon: "🌊", count: 0 },
-  { id: "sariaya", name: "Sariaya", english: "Sariaya", icon: "🏛️", count: 0 },
-  { id: "dolores", name: "Dolores", english: "Dolores", icon: "🌄", count: 0 },
-  { id: "agdangan", name: "Agdangan", english: "Agdangan", icon: "🐚", count: 0 },
-  { id: "general-luna", name: "General Luna", english: "General Luna", icon: "🌾", count: 0 },
-  { id: "alabat", name: "Alabat", english: "Alabat", icon: "🏝️", count: 0 },
-  { id: "general-nakar", name: "General Nakar", english: "General Nakar", icon: "🌳", count: 0 },
-  { id: "atimonan", name: "Atimonan", english: "Atimonan", icon: "🛣️", count: 0 },
-  { id: "guinayangan", name: "Guinayangan", english: "Guinayangan", icon: "🥥", count: 0 },
-  { id: "buenavista", name: "Buenavista", english: "Buenavista", icon: "🌅", count: 0 },
-  { id: "gumaca", name: "Gumaca", english: "Gumaca", icon: "⛪", count: 0 },
-  { id: "burdeos", name: "Burdeos", english: "Burdeos", icon: "🚤", count: 0 },
-  { id: "infanta", name: "Infanta", english: "Infanta", icon: "🏞️", count: 0 },
-  { id: "calauag", name: "Calauag", english: "Calauag", icon: "🌴", count: 0 },
-  { id: "jomalig", name: "Jomalig", english: "Jomalig", icon: "🏖️", count: 0 },
+  {
+    id: "1st-district",
+    name: "1st District",
+    english: "First District",
+    icon: "🌄",
+    count: 0,
+    cities: [
+      "General Nakar",
+      "Infanta",
+      "Jomalig",
+      "Lucban",
+      "Mauban",
+      "Pagbilao",
+      "Panukulan",
+      "Patnanungan",
+      "Polillo",
+      "Real",
+      "Sampaloc",
+      "Tayabas City",
+    ],
+  },
+  {
+    id: "2nd-district",
+    name: "2nd District",
+    english: "Second District",
+    icon: "🏛️",
+    count: 0,
+    cities: ["Candelaria", "Dolores", "San Antonio", "Sariaya", "Tiaong", "Lucena City"],
+  },
+  {
+    id: "3rd-district",
+    name: "3rd District",
+    english: "Third District",
+    icon: "🌾",
+    count: 0,
+    cities: [
+      "Agdangan",
+      "Buenavista",
+      "Catanauan",
+      "General Luna",
+      "Macalelon",
+      "Mulanay",
+      "Padre Burgos",
+      "Pitogo",
+      "San Andres",
+      "San Francisco",
+      "San Narciso",
+      "Unisan",
+    ],
+  },
+  {
+    id: "4th-district",
+    name: "4th District",
+    english: "Fourth District",
+    icon: "🌊",
+    count: 0,
+    cities: [
+      "Alabat",
+      "Atimonan",
+      "Calauag",
+      "Guinayangan",
+      "Gumaca",
+      "Lopez",
+      "Perez",
+      "Plaridel",
+      "Quezon",
+      "Tagkawayan",
+    ],
+  },
 ];
 
 export const words: WordEntry[] = [
