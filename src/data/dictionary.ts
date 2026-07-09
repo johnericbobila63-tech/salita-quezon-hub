@@ -93,7 +93,6 @@ export const words: WordEntry[] = [
     partOfSpeech: "pangngalan",
     category: "1st-district",
     city: "Lucban",
-
     definition: "A colorful harvest festival celebrated in Lucban, Quezon every May 15 in honor of San Isidro Labrador.",
     filipino: "Pista ng Pahiyas",
     english: "Harvest Festival",
@@ -110,7 +109,6 @@ export const words: WordEntry[] = [
     partOfSpeech: "pangngalan",
     category: "1st-district",
     city: "Lucban",
-
     definition: "A leaf-shaped wafer made from glutinous rice, traditionally used to decorate houses during Pahiyas.",
     filipino: "Kiping",
     english: "Rice leaf wafer",
@@ -127,7 +125,6 @@ export const words: WordEntry[] = [
     partOfSpeech: "pangngalan",
     category: "1st-district",
     city: "Lucban",
-
     definition: "A garlicky, vinegar-rich native sausage that originated from Lucban, Quezon.",
     filipino: "Longganisang Lucban",
     english: "Lucban native sausage",
@@ -186,7 +183,6 @@ export const words: WordEntry[] = [
     partOfSpeech: "pangngalan",
     category: "1st-district",
     city: "Lucban",
-
     definition: "A Lucban specialty noodle dish eaten directly from a banana leaf — without utensils.",
     filipino: "Pansit Habhab",
     english: "Lucban-style noodles",
@@ -300,7 +296,6 @@ export const words: WordEntry[] = [
     partOfSpeech: "pangngalan",
     category: "1st-district",
     city: "Lucban",
-
     definition: "A Lucban-style meatloaf made of ground pork, raisins, and vegetables, steamed in a llanera mold.",
     filipino: "Hardinera",
     english: "Quezon-style meatloaf",
@@ -359,7 +354,6 @@ export const words: WordEntry[] = [
     partOfSpeech: "pangngalan",
     category: "1st-district",
     city: "Tayabas City",
-
     definition: "Cashew — a fruit and nut commonly grown in Quezon, especially in Tayabas and Lucban.",
     filipino: "Kasoy",
     english: "Cashew",
@@ -586,7 +580,6 @@ export const words: WordEntry[] = [
     partOfSpeech: "pangngalan",
     category: "1st-district",
     city: "Tayabas City",
-
     definition: "A Holy Week tradition of visiting seven churches; popular in Quezon's old Spanish-era towns.",
     filipino: "Bisita Iglesia",
     english: "Church visitation",
