@@ -14,6 +14,7 @@ import { useEffect, useRef, useState } from "react";
 const WordDetail = () => {
   const { id } = useParams();
   const word = words.find((w) => w.id === id);
+  const district = categories.find((c) => c.id === word?.category);
   const { isSaved, toggle } = useSavedWords();
   const [hasRecording, setHasRecording] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -54,7 +55,14 @@ const WordDetail = () => {
         </Link>
 
         <header className="bg-card rounded-3xl border border-border shadow-soft p-8 md:p-12 mb-8">
-          <span className="text-[10px] uppercase tracking-widest font-bold text-accent">{word.partOfSpeech} · {word.category}</span>
+          <span className="text-[10px] uppercase tracking-widest font-bold text-accent">
+            {word.partOfSpeech} · {district?.name || word.category}
+            {word.city && (
+              <span className="ml-2 inline-flex items-center gap-1 text-[10px] normal-case px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
+                <MapPin className="w-3 h-3" /> {word.city}
+              </span>
+            )}
+          </span>
           <h1 className="font-display text-5xl md:text-7xl mt-3 mb-3">{word.word}</h1>
           <p className="text-lg text-muted-foreground mb-6">/{word.pronunciation}/</p>
 
