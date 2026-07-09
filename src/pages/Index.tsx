@@ -80,27 +80,37 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Districts */}
       <section className="container py-12">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <span className="text-xs uppercase tracking-[0.3em] text-accent font-bold">Mga Kategorya</span>
-            <h2 className="font-display text-3xl md:text-4xl mt-2">Browse by theme</h2>
+            <span className="text-xs uppercase tracking-[0.3em] text-accent font-bold">Mga Distrito</span>
+            <h2 className="font-display text-3xl md:text-4xl mt-2">Browse by District</h2>
           </div>
           <Link to="/categories" className="hidden md:block text-sm font-medium text-primary hover:underline">View all →</Link>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {categories.slice(0, 8).map((c) => (
-            <Link key={c.id} to={`/categories?c=${c.id}`} className="group bg-card rounded-2xl border border-border p-5 text-center hover:shadow-warm hover:-translate-y-1 transition-smooth">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {categories.map((c) => (
+            <Link key={c.id} to={`/categories?c=${c.id}`} className="group bg-card rounded-2xl border border-border p-5 hover:shadow-warm hover:-translate-y-1 transition-smooth">
               <div className="text-4xl mb-3 transition-smooth group-hover:scale-110">{c.icon}</div>
               <div className="font-display font-semibold">{c.name}</div>
-              <div className="text-xs text-muted-foreground mt-1">{c.english} · {c.count}</div>
+              <div className="text-xs text-muted-foreground mt-1">{c.english} · {c.cities.length} cities</div>
+              <div className="mt-3 flex flex-wrap gap-1">
+                {c.cities.slice(0, 3).map((city) => (
+                  <span key={city} className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
+                    <MapPin className="w-3 h-3" /> {city}
+                  </span>
+                ))}
+                {c.cities.length > 3 && (
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-muted text-muted-foreground">+{c.cities.length - 3} more</span>
+                )}
+              </div>
             </Link>
           ))}
         </div>
         <div className="mt-8 text-center">
           <Link to="/categories" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary-glow transition-smooth">
-            See more City →
+            See all districts →
           </Link>
         </div>
       </section>
