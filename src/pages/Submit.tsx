@@ -3,15 +3,19 @@ import { useState } from "react";
 import { Mic, Send, CheckCircle2 } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { categories } from "@/data/dictionary";
+
 
 const schema = z.object({
   word: z.string().trim().min(1, "Required").max(60),
   pronunciation: z.string().trim().max(80).optional().or(z.literal("")),
   category: z.string().min(1),
+  city: z.string().optional().or(z.literal("")),
   definition: z.string().trim().min(10, "Please give a brief definition").max(500),
   example: z.string().trim().max(300).optional().or(z.literal("")),
   contributor: z.string().trim().max(80).optional().or(z.literal("")),
 });
+
 
 const Submit = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -55,15 +59,21 @@ const Submit = () => {
           <Field label="Word *" name="word" placeholder="e.g. Hatid" />
           <Field label="Pronunciation guide" name="pronunciation" placeholder="e.g. HA-tid" />
           <div>
-            <label className="block text-sm font-medium mb-2">Category *</label>
+            <label className="block text-sm font-medium mb-2">District *</label>
             <select name="category" required className="w-full px-4 py-3 rounded-xl border border-input bg-background outline-none focus:border-primary transition-smooth">
-              <option value="">Select…</option>
-              <option value="food">Pagkain · Food</option>
-              <option value="culture">Kultura · Culture</option>
-              <option value="daily">Araw-araw · Daily Life</option>
-              <option value="nature">Kalikasan · Nature</option>
-              <option value="traditions">Tradisyon · Traditions</option>
-              <option value="people">Tao · People</option>
+              <option value="">Select district…</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>{c.name} · {c.english}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">City / Municipality (optional)</label>
+            <select name="city" className="w-full px-4 py-3 rounded-xl border border-input bg-background outline-none focus:border-primary transition-smooth">
+              <option value="">Select city…</option>
+              {categories.flatMap((c) => c.cities.map((city) => (
+                <option key={`${c.id}-${city}`} value={city}>{city}</option>
+              )))}
             </select>
           </div>
           <Field label="Definition *" name="definition" textarea placeholder="Briefly describe the meaning…" />

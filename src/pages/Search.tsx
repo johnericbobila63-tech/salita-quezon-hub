@@ -1,15 +1,17 @@
 import { Layout } from "@/components/Layout";
 import { SearchBar } from "@/components/SearchBar";
 import { WordCard } from "@/components/WordCard";
-import { words } from "@/data/dictionary";
+import { categories, words } from "@/data/dictionary";
 import { useSearchParams } from "react-router-dom";
 
 const Search = () => {
   const [params] = useSearchParams();
   const q = params.get("q")?.toLowerCase() ?? "";
-  const results = words.filter(
-    (w) => w.word.toLowerCase().includes(q) || w.english.toLowerCase().includes(q) || w.definition.toLowerCase().includes(q)
-  );
+  const results = words.filter((w) => {
+    const district = categories.find((c) => c.id === w.category);
+    const text = [w.word, w.english, w.definition, w.filipino, w.city, district?.name, district?.english].filter(Boolean).join(" ").toLowerCase();
+    return text.includes(q);
+  });
 
   return (
     <Layout>
