@@ -1,6 +1,6 @@
 import { Layout } from "@/components/Layout";
 import { categories, words } from "@/data/dictionary";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Volume2, ArrowLeft, Sparkles, Bookmark, BookmarkCheck, MapPin } from "lucide-react";
 import { speak } from "@/lib/speak";
 import { VoiceRecorder } from "@/components/VoiceRecorder";
