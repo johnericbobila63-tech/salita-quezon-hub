@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 
 const WordDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const word = words.find((w) => w.id === id);
   const district = categories.find((c) => c.id === word?.category);
   const { isSaved, toggle } = useSavedWords();
