@@ -43,8 +43,15 @@ const Index = () => {
             <SearchBar large />
             <div className="mt-6 flex flex-wrap gap-2 text-sm text-primary-foreground/80">
               <span>Try:</span>
-              {["Pahiyas", "Niyog", "Kiping", "Salakot"].map((t) => (
-                <Link key={t} to={`/search?q=${t}`} className="px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 transition-smooth backdrop-blur-sm">{t}</Link>
+              {useMemo(() => {
+                const pool = [...words];
+                for (let i = pool.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+                return pool.slice(0, 4);
+              }, []).map((w) => (
+                <Link key={w.id} to={`/search?q=${encodeURIComponent(w.word)}`} className="px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 transition-smooth backdrop-blur-sm">{w.word}</Link>
               ))}
             </div>
           </div>

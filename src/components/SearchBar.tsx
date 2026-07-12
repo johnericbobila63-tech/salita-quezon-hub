@@ -41,7 +41,7 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
             value={q}
             onChange={(e) => { setQ(e.target.value); setOpen(true); }}
             onFocus={() => setOpen(true)}
-            placeholder="Maghanap ng salita... e.g. Pahiyas, Niyog, Kiping"
+            placeholder="Maghanap ng salita..."
             className={cn(
               "flex-1 bg-transparent outline-none placeholder:text-muted-foreground",
               large ? "text-lg" : "text-sm"
