@@ -51,9 +51,10 @@ const WordDetail = () => {
   return (
     <Layout>
       <article className="container py-12 md:py-16 max-w-4xl">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-8">
-          <ArrowLeft className="w-4 h-4" /> Back to home
-        </Link>
+        <button onClick={() => navigate(-1)} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-8">
+          <ArrowLeft className="w-4 h-4" /> Back
+        </button>
+
 
         <header className="bg-card rounded-3xl border border-border shadow-soft p-8 md:p-12 mb-8">
           <span className="text-[10px] uppercase tracking-widest font-bold text-accent">
