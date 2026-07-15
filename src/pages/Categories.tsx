@@ -22,14 +22,6 @@ const Categories = () => {
         <h1 className="font-display text-4xl md:text-5xl mt-2 mb-8">Browse by District</h1>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-          <button
-            onClick={() => setParams({})}
-            className={`p-5 rounded-2xl text-left border transition-smooth ${!active ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border hover:bg-muted"}`}
-          >
-            <div className="text-3xl mb-2">🏳️</div>
-            <div className="font-display font-semibold">All</div>
-            <div className="text-xs opacity-80 mt-1">Every district</div>
-          </button>
           {categories.map((c) => (
             <button
               key={c.id}
