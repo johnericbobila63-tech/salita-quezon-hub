@@ -16,6 +16,7 @@ import Onboarding from "./pages/Onboarding.tsx";
 import Auth from "./pages/Auth.tsx";
 import Settings from "./pages/Settings.tsx";
 import Saved from "./pages/Saved.tsx";
+import Translate from "./pages/Translate.tsx";
 import { OnboardingGate } from "./components/OnboardingGate";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/saved" element={<Saved />} />
+          <Route path="/translate" element={<Translate />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
