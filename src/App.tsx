@@ -16,6 +16,7 @@ import Onboarding from "./pages/Onboarding.tsx";
 import Auth from "./pages/Auth.tsx";
 import Settings from "./pages/Settings.tsx";
 import Saved from "./pages/Saved.tsx";
+import Translate from "./pages/Translate.tsx";
 import { OnboardingGate } from "./components/OnboardingGate";
 
 const queryClient = new QueryClient();
