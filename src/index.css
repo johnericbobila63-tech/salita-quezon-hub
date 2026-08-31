@@ -99,10 +99,18 @@
 
 @layer base {
   html, body, #root { height: 100%; }
+  body { overflow-x: hidden; }
   * { @apply border-border; }
   html {
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: 100%;
+  }
+  /* App-like compact scale on phones: shrinks type and rem-based spacing */
+  @media (max-width: 767px) {
+    html { font-size: 13px; }
+  }
+  @media (max-width: 380px) {
+    html { font-size: 12px; }
   }
   body {
     @apply bg-background text-foreground;

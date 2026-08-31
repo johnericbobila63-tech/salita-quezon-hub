@@ -17,18 +17,18 @@ const Categories = () => {
 
   return (
     <Layout>
-      <section className="container py-12 md:py-16">
+      <section className="container py-6 md:py-16">
         <span className="text-xs uppercase tracking-[0.3em] text-accent font-bold">Mga Distrito</span>
-        <h1 className="font-display text-4xl md:text-5xl mt-2 mb-8">Browse by District</h1>
+        <h1 className="font-display text-2xl md:text-5xl mt-2 mb-6">Browse by District</h1>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-10">
           {categories.map((c) => (
             <button
               key={c.id}
               onClick={() => setParams({ c: c.id })}
-              className={`p-5 rounded-2xl text-left border transition-smooth ${active === c.id ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border hover:bg-muted"}`}
+              className={`p-3.5 md:p-5 rounded-2xl text-left border transition-smooth ${active === c.id ? "bg-primary text-primary-foreground border-primary" : "bg-card border-border hover:bg-muted"}`}
             >
-              <div className="text-3xl mb-2">{c.icon}</div>
+              <div className="text-2xl md:text-3xl mb-1.5">{c.icon}</div>
               <div className="font-display font-semibold">{c.name}</div>
               <div className={`text-xs mt-1 ${active === c.id ? "opacity-80" : "text-muted-foreground"}`}>{c.cities.length} cities · {c.count} words</div>
             </button>
@@ -61,9 +61,9 @@ const Categories = () => {
         )}
 
         {!active && (
-          <div className="mb-10 space-y-8">
+          <div className="mb-8 space-y-4 md:space-y-8">
             {categories.map((district) => (
-              <div key={district.id} className="bg-card rounded-2xl border border-border p-6">
+              <div key={district.id} className="bg-card rounded-2xl border border-border p-4 md:p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{district.icon}</span>
@@ -100,7 +100,7 @@ const Categories = () => {
               </h2>
               <span className="text-sm text-muted-foreground">{list.length} result{list.length !== 1 ? "s" : ""}</span>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
               {list.map((w) => <WordCard key={w.id} word={w} />)}
             </div>
           </>
