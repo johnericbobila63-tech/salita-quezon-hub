@@ -40,6 +40,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/saved" element={<Saved />} />
+          <Route path="/translate" element={<Translate />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
