@@ -7,6 +7,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/categories", label: "Categories" },
   { to: "/pronunciation", label: "Pronunciation" },
+  { to: "/translate", label: "Translator" },
   { to: "/about", label: "About" },
   { to: "/submit", label: "Submit a Word" },
   { to: "/settings", label: "Settings" },
