@@ -99,6 +99,7 @@
 
 @layer base {
   html, body, #root { height: 100%; }
+  body { overflow-x: hidden; }
   * { @apply border-border; }
   html {
     -webkit-tap-highlight-color: transparent;
