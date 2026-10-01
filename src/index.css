@@ -166,7 +166,7 @@
   .game-map { @apply rounded-3xl bg-ocean/10 border border-border overflow-hidden; }
   .game-level { @apply flex items-center gap-4 p-4 rounded-2xl bg-card border border-border transition-smooth active:scale-[0.98]; }
   .game-level-badge { @apply grid place-items-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold shrink-0; }
-  .game-orb { @apply grid place-items-center w-28 h-28 rounded-full bg-primary text-primary-foreground animate-float; box-shadow: 0 0 0 14px hsl(var(--primary) / 0.15), 0 0 0 28px hsl(var(--ocean) / 0.1); }
+  .game-orb { @apply grid place-items-center w-28 h-28 rounded-full bg-primary text-primary-foreground; box-shadow: 0 0 0 14px hsl(var(--primary) / 0.15), 0 0 0 28px hsl(var(--ocean) / 0.1); }
   .game-mic { @apply grid place-items-center w-36 h-36 rounded-full bg-primary text-primary-foreground transition-smooth active:scale-95; box-shadow: 0 0 0 12px hsl(var(--primary) / 0.15); }
   .game-mic.is-live { @apply bg-destructive text-destructive-foreground; animation: mic-pulse 1.2s infinite; }
   .game-wave { @apply w-1.5 rounded-full bg-destructive; animation: wave 0.8s ease-in-out infinite alternate; }
@@ -179,3 +179,5 @@
 @keyframes wave { from { height: 6px; } to { height: 30px; } }
 @keyframes confetti { to { transform: translateY(105vh) rotate(720deg); opacity: 0.6; } }
 @keyframes ring { to { stroke-dashoffset: var(--ring-to); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.animate-fade-in { animation: fade-in 0.3s ease-out both; }
