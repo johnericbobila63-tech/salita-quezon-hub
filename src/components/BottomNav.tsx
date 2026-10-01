@@ -1,20 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { Home, Search, LayoutGrid, Bookmark, Mic, Languages, Settings as SettingsIcon } from "lucide-react";
+import { Home, LayoutGrid, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const tabs = [
-  { to: "/", label: "Home", icon: Home, end: true },
-  { to: "/search", label: "Search", icon: Search },
   { to: "/categories", label: "Districts", icon: LayoutGrid },
+  { to: "/", label: "Home", icon: Home, end: true },
   { to: "/saved", label: "Saved", icon: Bookmark },
-  { to: "/pronunciation", label: "Voice", icon: Mic },
-  { to: "/translate", label: "Salin", icon: Languages },
-  { to: "/settings", label: "Settings", icon: SettingsIcon },
 ];
 
 export const BottomNav = () => (
   <nav className="sticky bottom-0 z-40 w-full border-t border-border bg-background/95 backdrop-blur-md pb-safe">
-    <ul className="grid grid-cols-7 max-w-md mx-auto">
+    <ul className="grid grid-cols-3 max-w-md mx-auto">
+
 
       {tabs.map((t) => (
         <li key={t.to}>
