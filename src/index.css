@@ -154,3 +154,30 @@
   to { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up { animation: fade-up 0.6s ease-out both; }
+
+/* ===== Quezon Voice Quest ===== */
+:root { --game-d1: 145 45% 40%; --game-d2: 195 55% 45%; --game-d3: 38 85% 55%; --game-d4: 14 65% 55%; }
+@layer components {
+  .game-root { background: radial-gradient(circle at 20% 0%, hsl(var(--ocean) / 0.18), transparent 50%), radial-gradient(circle at 90% 100%, hsl(var(--primary) / 0.16), transparent 50%), hsl(var(--background)); }
+  .game-icon-btn { @apply grid place-items-center w-10 h-10 rounded-full bg-card border border-border; }
+  .game-cta { @apply px-12 py-4 rounded-full text-lg font-bold tracking-wider bg-primary text-primary-foreground shadow-warm transition-smooth active:scale-95; }
+  .game-secondary { @apply inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-card border border-border font-bold text-sm transition-smooth active:scale-95; }
+  .game-chip { @apply inline-flex items-center gap-1.5 px-3 py-2 rounded-full bg-card border-2 border-border text-sm font-semibold transition-smooth active:scale-95; }
+  .game-map { @apply rounded-3xl bg-ocean/10 border border-border overflow-hidden; }
+  .game-level { @apply flex items-center gap-4 p-4 rounded-2xl bg-card border border-border transition-smooth active:scale-[0.98]; }
+  .game-level-badge { @apply grid place-items-center w-10 h-10 rounded-full bg-primary text-primary-foreground font-bold shrink-0; }
+  .game-orb { @apply grid place-items-center w-28 h-28 rounded-full bg-primary text-primary-foreground; box-shadow: 0 0 0 14px hsl(var(--primary) / 0.15), 0 0 0 28px hsl(var(--ocean) / 0.1); }
+  .game-mic { @apply grid place-items-center w-36 h-36 rounded-full bg-primary text-primary-foreground transition-smooth active:scale-95; box-shadow: 0 0 0 12px hsl(var(--primary) / 0.15); }
+  .game-mic.is-live { @apply bg-destructive text-destructive-foreground; animation: mic-pulse 1.2s infinite; }
+  .game-wave { @apply w-1.5 rounded-full bg-destructive; animation: wave 0.8s ease-in-out infinite alternate; }
+  .game-confetti { position: absolute; top: -10px; width: 8px; height: 14px; border-radius: 2px; animation: confetti 2.2s ease-in forwards; }
+  .game-ring { animation: ring 1.2s ease-out forwards; }
+  .game-marker { animation: fade-in 0.4s both; }
+  .game-district:hover polygon { opacity: 1; }
+}
+@keyframes mic-pulse { 0%,100% { box-shadow: 0 0 0 0 hsl(var(--destructive) / 0.5); } 50% { box-shadow: 0 0 0 22px hsl(var(--destructive) / 0); } }
+@keyframes wave { from { height: 6px; } to { height: 30px; } }
+@keyframes confetti { to { transform: translateY(105vh) rotate(720deg); opacity: 0.6; } }
+@keyframes ring { to { stroke-dashoffset: var(--ring-to); } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+.animate-fade-in { animation: fade-in 0.3s ease-out both; }

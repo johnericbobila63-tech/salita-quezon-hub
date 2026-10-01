@@ -17,6 +17,7 @@ import Auth from "./pages/Auth.tsx";
 import Settings from "./pages/Settings.tsx";
 import Saved from "./pages/Saved.tsx";
 import Translate from "./pages/Translate.tsx";
+import Game from "./pages/Game.tsx";
 import { OnboardingGate } from "./components/OnboardingGate";
 
 const queryClient = new QueryClient();
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/settings" element={<Settings />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/translate" element={<Translate />} />
+          <Route path="/game" element={<Game />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

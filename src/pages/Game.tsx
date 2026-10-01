@@ -50,7 +50,7 @@ const Game = () => {
       <main className="flex-1 flex flex-col px-4 pb-4 max-w-2xl w-full mx-auto">
         {screen === "home" && (
           <div className="flex-1 flex flex-col items-center justify-center text-center gap-6 animate-fade-up">
-            <div className="game-orb"><Mic className="w-14 h-14" /></div>
+            <div className="game-orb animate-float"><Mic className="w-14 h-14" /></div>
             <h1 className="font-display text-4xl md:text-6xl font-bold leading-tight">QUEZON<br />VOICE QUEST</h1>
             <p className="text-muted-foreground text-base max-w-xs">Explore Quezon. Speak. Learn. Master the Pronunciation.</p>
             <button onClick={() => { sfx.tap(m); setScreen("map"); }} className="game-cta">START GAME</button>
