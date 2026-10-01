@@ -66,7 +66,7 @@ const Game = () => {
                 {district ? "Tap a city or municipality." : "Choose a district to begin your pronunciation adventure."}
               </p>
             </div>
-            <div className="game-map flex-1 min-h-[360px] max-h-[62vh]">
+            <div className="game-map w-full aspect-[460/601] max-h-[62vh] mx-auto">
               <QuezonMap selected={district} completed={p.completed}
                 onDistrict={(d) => { sfx.tap(m); setDistrict(d); }} onLocality={openLocality} />
             </div>
