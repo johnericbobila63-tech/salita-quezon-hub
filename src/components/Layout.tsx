@@ -1,5 +1,6 @@
 import { Navbar } from "./Navbar";
 import { BottomNav } from "./BottomNav";
+import { GameFab } from "./GameFab";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => (
   <div className="min-h-dvh flex flex-col bg-background">
@@ -7,6 +8,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => (
       <Navbar />
     </div>
     <main className="flex-1 pb-2">{children}</main>
+    <GameFab />
     <BottomNav />
   </div>
 );
