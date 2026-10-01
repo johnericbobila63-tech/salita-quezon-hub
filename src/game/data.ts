@@ -7,6 +7,7 @@ export const districts: District[] = [
   {
     id: 1, name: "District 1", color: "var(--game-d1)",
     localities: [
+      { name: "Burdeos", lat: 14.84, lng: 121.97 },
       { name: "General Nakar", lat: 14.76, lng: 121.63 },
       { name: "Infanta", lat: 14.74, lng: 121.65 },
       { name: "Jomalig", lat: 14.70, lng: 122.38 },
@@ -69,7 +70,6 @@ export const districts: District[] = [
 export const TOTAL_LOCALITIES = districts.reduce((n, d) => n + d.localities.length, 0);
 
 // Map projection into SVG space
-export const MAP_W = 460, MAP_H = 520;
 export const project = (lat: number, lng: number) => ({
   x: 20 + (lng - 121.2) * 270,
   y: 20 + (15.05 - lat) * 270,
