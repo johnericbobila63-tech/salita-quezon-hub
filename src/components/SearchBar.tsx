@@ -81,6 +81,46 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
     }
   };
 
+  const onPickImage = async (file: File) => {
+    setReadingImage(true);
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const max = 1280;
+          const scale = Math.min(1, max / Math.max(img.width, img.height));
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          canvas.getContext("2d")!.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(img.src);
+          resolve(canvas.toDataURL("image/jpeg", 0.8));
+        };
+        img.onerror = () => reject(new Error("Hindi mabasa ang larawan."));
+        img.src = URL.createObjectURL(file);
+      });
+
+      const { data, error } = await supabase.functions.invoke("translate", {
+        body: { image: dataUrl },
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const extracted = ((data as any).text || "").trim();
+      if (!extracted) {
+        toast.error("Walang nabasang salita sa larawan. Subukan ang mas malinaw na litrato.");
+      } else {
+        setQ(extracted);
+        setOpen(true);
+        navigate(`/search?q=${encodeURIComponent(extracted)}`);
+      }
+    } catch (e) {
+      toast.error((e as Error).message || "Hindi mabasa ang larawan. Subukan ulit.");
+    } finally {
+      setReadingImage(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
   return (
     <div ref={ref} className="relative w-full">
       <form onSubmit={submit}>
