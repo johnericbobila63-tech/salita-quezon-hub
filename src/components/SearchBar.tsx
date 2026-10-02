@@ -1,8 +1,10 @@
-import { Search, Volume2, Mic, Square } from "lucide-react";
+import { Search, Volume2, Mic, Square, Camera, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { words } from "@/data/dictionary";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface Props { large?: boolean; defaultValue?: string }
 
