@@ -12,10 +12,12 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
   const [q, setQ] = useState(defaultValue);
   const [open, setOpen] = useState(false);
   const [listening, setListening] = useState(false);
+  const [readingImage, setReadingImage] = useState(false);
   const navigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
   const recRef = useRef<any>(null);
   const spokenRef = useRef("");
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const suggestions = q.trim()
     ? words.filter((w) => w.word.toLowerCase().includes(q.toLowerCase()) || w.english.toLowerCase().includes(q.toLowerCase())).slice(0, 5)
