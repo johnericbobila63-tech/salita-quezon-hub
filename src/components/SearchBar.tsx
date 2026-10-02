@@ -156,6 +156,32 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
               {listening ? <Square className="w-4 h-4 fill-current" /> : <Mic className={cn(large ? "w-5 h-5" : "w-4 h-4")} />}
             </button>
           )}
+          <button
+            type="button"
+            aria-label="Read words from a photo"
+            title="Read words from a photo"
+            disabled={readingImage}
+            onClick={() => fileRef.current?.click()}
+            className={cn(
+              "shrink-0 inline-flex items-center justify-center rounded-full transition-smooth",
+              "w-9 h-9 md:w-10 md:h-10 text-muted-foreground hover:text-primary hover:bg-primary/10",
+              "disabled:opacity-60",
+              large && "md:w-11 md:h-11"
+            )}
+          >
+            {readingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className={cn(large ? "w-5 h-5" : "w-4 h-4")} />}
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) onPickImage(f);
+            }}
+          />
           <button type="submit" className={cn(
             "rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary-glow transition-smooth shrink-0",
             large ? "px-6 py-2.5" : "px-4 py-1.5 text-sm"
