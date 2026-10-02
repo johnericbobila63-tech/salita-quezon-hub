@@ -13,6 +13,7 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
   const navigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
   const recRef = useRef<any>(null);
+  const spokenRef = useRef("");
 
   const suggestions = q.trim()
     ? words.filter((w) => w.word.toLowerCase().includes(q.toLowerCase()) || w.english.toLowerCase().includes(q.toLowerCase())).slice(0, 5)
@@ -52,16 +53,22 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
     rec.onresult = (e: any) => {
       let text = "";
       for (let i = 0; i < e.results.length; i++) text += e.results[i][0].transcript;
-      setQ(text.trim());
+      const trimmed = text.trim();
+      if (!trimmed) return;
+      spokenRef.current = trimmed;
+      setQ(trimmed);
       setOpen(true);
     };
     rec.onerror = () => setListening(false);
     rec.onend = () => {
       setListening(false);
       recRef.current = null;
+      if (spokenRef.current) navigate(`/search?q=${encodeURIComponent(spokenRef.current)}`);
+      spokenRef.current = "";
     };
 
     recRef.current = rec;
+    spokenRef.current = "";
     setListening(true);
     try {
       rec.start();
