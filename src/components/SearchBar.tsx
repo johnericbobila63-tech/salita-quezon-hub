@@ -1,8 +1,10 @@
-import { Search, Volume2, Mic, Square } from "lucide-react";
+import { Search, Volume2, Mic, Square, Camera, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { words } from "@/data/dictionary";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface Props { large?: boolean; defaultValue?: string }
 
@@ -10,10 +12,12 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
   const [q, setQ] = useState(defaultValue);
   const [open, setOpen] = useState(false);
   const [listening, setListening] = useState(false);
+  const [readingImage, setReadingImage] = useState(false);
   const navigate = useNavigate();
   const ref = useRef<HTMLDivElement>(null);
   const recRef = useRef<any>(null);
   const spokenRef = useRef("");
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const suggestions = q.trim()
     ? words.filter((w) => w.word.toLowerCase().includes(q.toLowerCase()) || w.english.toLowerCase().includes(q.toLowerCase())).slice(0, 5)
@@ -77,6 +81,46 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
     }
   };
 
+  const onPickImage = async (file: File) => {
+    setReadingImage(true);
+    try {
+      const dataUrl = await new Promise<string>((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const max = 1280;
+          const scale = Math.min(1, max / Math.max(img.width, img.height));
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          canvas.getContext("2d")!.drawImage(img, 0, 0, canvas.width, canvas.height);
+          URL.revokeObjectURL(img.src);
+          resolve(canvas.toDataURL("image/jpeg", 0.8));
+        };
+        img.onerror = () => reject(new Error("Hindi mabasa ang larawan."));
+        img.src = URL.createObjectURL(file);
+      });
+
+      const { data, error } = await supabase.functions.invoke("translate", {
+        body: { image: dataUrl },
+      });
+      if (error) throw error;
+      if ((data as any)?.error) throw new Error((data as any).error);
+      const extracted = ((data as any).text || "").trim();
+      if (!extracted) {
+        toast.error("Walang nabasang salita sa larawan. Subukan ang mas malinaw na litrato.");
+      } else {
+        setQ(extracted);
+        setOpen(true);
+        navigate(`/search?q=${encodeURIComponent(extracted)}`);
+      }
+    } catch (e) {
+      toast.error((e as Error).message || "Hindi mabasa ang larawan. Subukan ulit.");
+    } finally {
+      setReadingImage(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
+  };
+
   return (
     <div ref={ref} className="relative w-full">
       <form onSubmit={submit}>
@@ -112,6 +156,32 @@ export const SearchBar = ({ large, defaultValue = "" }: Props) => {
               {listening ? <Square className="w-4 h-4 fill-current" /> : <Mic className={cn(large ? "w-5 h-5" : "w-4 h-4")} />}
             </button>
           )}
+          <button
+            type="button"
+            aria-label="Read words from a photo"
+            title="Read words from a photo"
+            disabled={readingImage}
+            onClick={() => fileRef.current?.click()}
+            className={cn(
+              "shrink-0 inline-flex items-center justify-center rounded-full transition-smooth",
+              "w-9 h-9 md:w-10 md:h-10 text-muted-foreground hover:text-primary hover:bg-primary/10",
+              "disabled:opacity-60",
+              large && "md:w-11 md:h-11"
+            )}
+          >
+            {readingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <Camera className={cn(large ? "w-5 h-5" : "w-4 h-4")} />}
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) onPickImage(f);
+            }}
+          />
           <button type="submit" className={cn(
             "rounded-xl bg-primary text-primary-foreground font-medium hover:bg-primary-glow transition-smooth shrink-0",
             large ? "px-6 py-2.5" : "px-4 py-1.5 text-sm"
