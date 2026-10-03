@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { Sparkles, BookOpen, Mic, Heart, MapPin } from "lucide-react";
 import { speak } from "@/lib/speak";
 import { useMemo } from "react";
+import { QuezonDictionaryMap } from "@/components/QuezonDictionaryMap";
 
 
 const Index = () => {
@@ -41,22 +42,17 @@ const Index = () => {
               Discover, listen, and preserve the rich Tagalog dialect of Quezon Province — from Pahiyas traditions to everyday words rooted in coconut country.
             </p>
             <SearchBar large />
-            <div className="mt-6 flex flex-wrap gap-2 text-sm text-primary-foreground/80">
-              <span>Try:</span>
-              {useMemo(() => {
-                const pool = [...words];
-                for (let i = pool.length - 1; i > 0; i--) {
-                  const j = Math.floor(Math.random() * (i + 1));
-                  [pool[i], pool[j]] = [pool[j], pool[i]];
-                }
-                return pool.slice(0, 4);
-              }, []).map((w) => (
-                <Link key={w.id} to={`/search?q=${encodeURIComponent(w.word)}`} className="px-3 py-1 rounded-full bg-white/15 hover:bg-white/25 transition-smooth backdrop-blur-sm">{w.word}</Link>
+            <div className="mt-6 flex items-center gap-2 overflow-x-auto pb-1 text-sm text-primary-foreground/80">
+              <span className="shrink-0">Try:</span>
+              {["Harana", "Suman sa Lihiya", "Sungal", "Pansit Habhab"].map((term) => (
+                <Link key={term} to={`/search?q=${encodeURIComponent(term)}`} className="shrink-0 rounded-full bg-primary-foreground/15 px-3 py-1 transition-smooth backdrop-blur-sm hover:bg-primary-foreground/25">{term}</Link>
               ))}
             </div>
           </div>
         </div>
       </section>
+
+      <QuezonDictionaryMap />
 
       {/* Word of the Day */}
       <section className="container py-8 md:py-20">
