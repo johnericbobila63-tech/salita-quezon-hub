@@ -17,9 +17,10 @@ const districtBox = (d: District) => {
 };
 
 export const QuezonMap = ({
-  selected, completed, onDistrict, onLocality,
+  selected, selectedLocality = "", completed, onDistrict, onLocality,
 }: {
   selected: District | null;
+  selectedLocality?: string;
   completed: Record<string, number>;
   onDistrict: (d: District) => void;
   onLocality: (name: string) => void;
@@ -49,19 +50,37 @@ export const QuezonMap = ({
             <g key={d.id} onClick={() => !selected && onDistrict(d)}
               className={selected ? "" : "cursor-pointer game-district"}
               style={{ opacity: dim ? 0.2 : 1, transition: "opacity 0.6s" }}>
-              {d.localities.map((l) => shapes[l.name] && (
-                <path key={l.name} d={shapes[l.name].d} fillRule="evenodd"
-                  fill={active && (completed[l.name] || 0) > 0 ? "hsl(var(--saffron))" : `hsl(${d.color})`}
-                  stroke={active ? "hsl(var(--card))" : `hsl(${d.color})`} strokeWidth={active ? 1.2 / k : 0.6}
-                  className={active ? "cursor-pointer game-town" : ""}
-                  onClick={(e) => { if (active) { e.stopPropagation(); onLocality(l.name); } }} />
-              ))}
+              {d.localities.map((l) => {
+                const shape = shapes[l.name];
+                if (!shape) return null;
+                const localitySelected = active && selectedLocality === l.name;
+                return (
+                  <path key={l.name} d={shape.d} fillRule="evenodd"
+                    fill={active && (completed[l.name] || 0) > 0 ? "hsl(var(--saffron))" : `hsl(${d.color})`}
+                    stroke={localitySelected ? "hsl(var(--foreground))" : active ? "hsl(var(--card))" : `hsl(${d.color})`}
+                    strokeWidth={localitySelected ? 3 / k : active ? 1.2 / k : 0.6}
+                    className={active ? "cursor-pointer game-town focus:outline-none" : ""}
+                    role={active ? "button" : undefined}
+                    tabIndex={active ? 0 : undefined}
+                    aria-label={active ? `Tingnan ang mga salita sa ${l.name}` : undefined}
+                    aria-pressed={active ? localitySelected : undefined}
+                    onKeyDown={(event) => {
+                      if (active && (event.key === "Enter" || event.key === " ")) {
+                        event.preventDefault();
+                        onLocality(l.name);
+                      }
+                    }}
+                    onClick={(e) => { if (active) { e.stopPropagation(); onLocality(l.name); } }}>
+                    <title>{l.name}</title>
+                  </path>
+                );
+              })}
             </g>
           );
         })}
         {!selected && districts.map((d) => {
           const b = districtBox(d);
-          const pos = { 1: [0.45, 0.45], 2: [0.35, 0.6], 3: [0.55, 0.45], 4: [0.5, 0.45] }[d.id]!;
+          const pos = ({ 1: [0.45, 0.45], 2: [0.35, 0.6], 3: [0.55, 0.45], 4: [0.5, 0.45] } as Record<number, [number, number]>)[d.id] ?? [0.5, 0.5];
           return (
             <g key={d.id} className="pointer-events-none">
               <text x={b.minX + (b.maxX - b.minX) * pos[0]} y={b.minY + (b.maxY - b.minY) * pos[1]} textAnchor="middle"
@@ -77,7 +96,7 @@ export const QuezonMap = ({
           if (!s) return null;
           return (
             <text key={l.name} x={s.cx} y={s.cy} textAnchor="middle" dominantBaseline="middle"
-              fontSize={9 / k} fontWeight={700} fill="hsl(var(--foreground))" className="game-marker"
+              fontSize={9 / k} fontWeight={700} fill="hsl(var(--foreground))" className="game-marker pointer-events-none"
               onClick={() => onLocality(l.name)}
               style={{ animationDelay: `${0.5 + i * 0.04}s`, cursor: "pointer", paintOrder: "stroke", stroke: "hsl(var(--card))", strokeWidth: 2.5 / k }}>
               {l.name.toUpperCase()}
