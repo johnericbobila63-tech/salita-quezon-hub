@@ -49,7 +49,17 @@ export const QuezonMap = ({
           return (
             <g key={d.id} onClick={() => !selected && onDistrict(d)}
               className={selected ? "" : "cursor-pointer game-district"}
+              role={!selected ? "button" : undefined}
+              tabIndex={!selected ? 0 : undefined}
+              aria-label={!selected ? `Piliin ang ${d.name}` : undefined}
+              onKeyDown={(event) => {
+                if (!selected && (event.key === "Enter" || event.key === " ")) {
+                  event.preventDefault();
+                  onDistrict(d);
+                }
+              }}
               style={{ opacity: dim ? 0.2 : 1, transition: "opacity 0.6s" }}>
+              <title>{d.name}</title>
               {d.localities.map((l) => {
                 const shape = shapes[l.name];
                 if (!shape) return null;
