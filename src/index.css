@@ -192,3 +192,21 @@
 @media (prefers-reduced-motion: reduce) {
   .map-word-panel, .animate-fade-up, .animate-float { animation: none; }
 }
+
+/* Quezon Quest */
+@layer components {
+  .qq-opt { @apply w-full flex items-center gap-3 p-4 rounded-2xl bg-card border-2 border-border font-semibold transition-smooth active:scale-[0.98]; }
+  .qq-opt-letter { @apply grid place-items-center w-8 h-8 rounded-full bg-muted text-sm font-bold shrink-0; }
+  .qq-opt-right { @apply border-primary bg-primary/15 text-primary; }
+  .qq-opt-wrong { @apply border-destructive bg-destructive/10 text-destructive; }
+  .qq-gate { @apply border-2 border-saffron; background: linear-gradient(135deg, hsl(var(--saffron) / 0.18), hsl(var(--card))); }
+  .qq-avatar { @apply grid place-items-center w-24 h-24 rounded-full bg-muted text-muted-foreground border-4 border-border; }
+  .qq-frame-green { border-color: hsl(var(--primary)); }
+  .qq-frame-ocean { border-color: hsl(var(--ocean)); }
+  .qq-frame-gold { border-color: hsl(var(--saffron)); box-shadow: 0 0 0 6px hsl(var(--saffron) / 0.25); }
+}
+.qq-pop { animation: qq-pop 0.45s cubic-bezier(.3,1.6,.5,1) both; }
+.qq-shake { animation: qq-shake 0.4s ease-in-out; }
+@keyframes qq-pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes qq-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+@media (prefers-reduced-motion: reduce) { .qq-pop, .qq-shake { animation: none; } }
