@@ -210,3 +210,19 @@
 @keyframes qq-pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 @keyframes qq-shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 @media (prefers-reduced-motion: reduce) { .qq-pop, .qq-shake { animation: none; } }
+
+/* Quezon Quest level path */
+.qq-path { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.75rem; padding: 1.5rem 0 2rem; }
+.qq-path::before { content: ""; position: absolute; top: 2rem; bottom: 3rem; left: 50%; width: 0; border-left: 3px dashed hsl(var(--border)); transform: translateX(-50%); }
+.qq-path-row { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; }
+.qq-node { position: relative; display: grid; place-items: center; width: 4rem; height: 4rem; border-radius: 9999px; font-size: 1.5rem; font-weight: 700; border: 3px solid transparent; transition: transform 0.15s ease; }
+.qq-node:active { transform: scale(0.94); }
+.qq-node-done { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border-color: hsl(var(--primary)); box-shadow: 0 4px 0 hsl(var(--primary) / 0.4); }
+.qq-node-current { background: hsl(var(--card)); color: hsl(var(--primary)); border-color: hsl(var(--primary)); box-shadow: 0 4px 0 hsl(var(--primary) / 0.25); }
+.qq-node-locked { background: hsl(var(--muted)); color: hsl(var(--muted-foreground) / 0.6); border-color: hsl(var(--border)); }
+.qq-node-gate.qq-node-done, .qq-node-gate.qq-node-current { background: hsl(var(--saffron)); color: hsl(var(--foreground)); border-color: hsl(var(--saffron)); box-shadow: 0 4px 0 hsl(var(--saffron) / 0.4); }
+.qq-node-ring { position: absolute; inset: -6px; border-radius: 9999px; border: 3px solid hsl(var(--primary) / 0.5); animation: qq-ring-pulse 1.6s ease-out infinite; pointer-events: none; }
+@keyframes qq-ring-pulse { 0% { transform: scale(0.9); opacity: 1; } 100% { transform: scale(1.25); opacity: 0; } }
+.qq-node-label { text-align: center; }
+.qq-path-end { position: relative; z-index: 1; font-size: 2rem; }
+@media (prefers-reduced-motion: reduce) { .qq-node-ring { animation: none; } }
