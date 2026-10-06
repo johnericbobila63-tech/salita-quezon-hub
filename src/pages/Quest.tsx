@@ -26,6 +26,7 @@ const Quest = () => {
   const [playing, setPlaying] = useState<Level | null>(null);
   const [lockInfo, setLockInfo] = useState<Level | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [runId, setRunId] = useState(0);
 
   useEffect(() => {
     if (!q.newAchievements.length || playing) return;
@@ -39,10 +40,10 @@ const Quest = () => {
 
   if (playing) return (
     <div className="game-root min-h-dvh flex flex-col pt-safe pb-safe">
-      <PlayLevel key={playing.id + Math.random()} lv={playing} q={q}
+      <PlayLevel key={`${playing.id}-${runId}`} lv={playing} q={q}
         onExit={() => setPlaying(null)}
         onNext={() => { const n = levels[playing.number]; if (n && q.isUnlocked(n)) setPlaying({ ...n }); else { setPlaying(null); setTab("quests"); } }}
-        onReplay={() => setPlaying({ ...playing })} />
+        onReplay={() => { setRunId((r) => r + 1); setPlaying({ ...playing }); }} />
     </div>
   );
 
