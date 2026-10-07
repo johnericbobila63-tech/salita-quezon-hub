@@ -226,3 +226,30 @@
 .qq-node-label { text-align: center; }
 .qq-path-end { position: relative; z-index: 1; font-size: 2rem; }
 @media (prefers-reduced-motion: reduce) { .qq-node-ring { animation: none; } }
+
+/* Numbered quest tiles: coconut leaves, coastal trim and kiping-gold stars. */
+:root {
+  --quest-tile-shadow: 0 5px 0 hsl(var(--primary) / 0.45), 0 8px 14px hsl(var(--foreground) / 0.08);
+  --quest-locked-shadow: 0 5px 0 hsl(var(--border));
+}
+.qq-select-heading { text-align: center; padding: 1rem 0 2rem; }
+.qq-select-heading h2 { letter-spacing: 0; }
+.qq-level-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.7rem 1rem; max-width: 440px; margin: 0 auto; }
+.qq-level-item { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; min-width: 0; }
+.qq-level-tile { position: relative; width: 100%; height: auto; aspect-ratio: 1; padding: 0; border-radius: 8px; border: 3px solid hsl(var(--primary)); transition: transform 150ms ease, box-shadow 150ms ease; }
+.qq-level-tile::before { content: ''; position: absolute; inset: 4px; border: 1px solid hsl(var(--primary-foreground) / 0.4); border-radius: 4px; pointer-events: none; }
+.qq-level-open, .qq-level-open:hover { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); box-shadow: var(--quest-tile-shadow); }
+.qq-level-locked, .qq-level-locked:hover { background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border-color: hsl(var(--border)); box-shadow: var(--quest-locked-shadow); }
+.qq-level-gate { border-color: hsl(var(--saffron)); }
+.qq-level-next { outline: 2px solid hsl(var(--ocean)); outline-offset: 4px; }
+.qq-level-tile:active { transform: translateY(3px); box-shadow: none; }
+.qq-level-number { font-size: 2.5rem; line-height: 1; }
+.qq-level-tile .qq-level-leaf { position: absolute; width: 20px; height: 20px; top: -12px; right: 4px; color: hsl(var(--primary)); fill: hsl(var(--secondary)); transform: rotate(25deg); }
+.qq-level-tile .qq-level-lock { width: 28px; height: 28px; }
+.qq-level-small-number { position: absolute; left: 10px; top: 8px; font-size: 0.75rem; }
+.qq-level-tile .qq-level-check, .qq-level-tile .qq-level-trophy { position: absolute; bottom: 8px; right: 8px; width: 13px; height: 13px; }
+.qq-level-tile .qq-level-trophy { left: 8px; right: auto; color: hsl(var(--saffron)); }
+.qq-level-pagination { display: flex; align-items: center; justify-content: space-between; max-width: 440px; margin: 2rem auto 0; }
+.qq-page-arrow { width: 3.5rem; height: 2.75rem; border: 2px solid hsl(var(--primary)); color: hsl(var(--primary)); background: hsl(var(--card)); box-shadow: 0 3px 0 hsl(var(--primary) / 0.2); }
+@media (max-width: 380px) { .qq-level-grid { gap: 1.5rem 0.75rem; } }
+@media (prefers-reduced-motion: reduce) { .qq-level-tile { transition: none; } }

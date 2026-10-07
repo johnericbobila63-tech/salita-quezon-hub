@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, Home, Swords, Trophy, BarChart3, User, Lock, Mic, Volume2, Check, X, Flame, Star, Heart, Settings as Cog } from "lucide-react";
+import { ArrowLeft, ArrowRight, Leaf, BookOpen, Home, Swords, Trophy, BarChart3, User, Lock, Mic, Volume2, Check, X, Flame, Star, Heart, Settings as Cog } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { CATEGORIES, CONFIG, Level, levels, MAX_STARS } from "@/quest/data";
 import { ACHIEVEMENTS, FRAMES, TITLES, titleFor, useQuestProgress } from "@/quest/progress";
 import { speak } from "@/lib/speak";
@@ -27,10 +28,13 @@ const Quest = () => {
   const [lockInfo, setLockInfo] = useState<Level | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [runId, setRunId] = useState(0);
+  const [levelPage, setLevelPage] = useState(0);
+  const pageCount = Math.ceil(levels.length / 12);
 
   useEffect(() => {
     if (!q.newAchievements.length || playing) return;
-    const a = ACHIEVEMENTS.find((x) => x.id === q.newAchievements[0])!;
+    const a = ACHIEVEMENTS.find((x) => x.id === q.newAchievements[0]);
+    if (!a) return;
     setToast(`${a.icon} New Achievement Unlocked! ${a.name}`); q.ackAchievements();
     const t = setTimeout(() => setToast(null), 3200); return () => clearTimeout(t);
   }, [q.newAchievements.join(), playing]);
@@ -63,7 +67,7 @@ const Quest = () => {
               <h1 className="font-display text-4xl md:text-5xl font-bold">QUEZON QUEST</h1>
               <p className="text-muted-foreground mt-1">Explore. Answer. Discover Quezon.</p>
             </div>
-            <button className="game-cta" onClick={() => { sfx.tap(false); setPlaying(nextLevel); }}>START QUEST</button>
+             <Button className="game-cta h-auto" onClick={() => { sfx.tap(false); setLevelPage(Math.floor((nextLevel.number - 1) / 12)); setTab("quests"); }}>START QUEST</Button>
             <div className="w-full max-w-sm space-y-1 text-left">
               <div className="flex justify-between text-sm font-bold"><span>Overall Progress</span><span>{stats.overall}%</span></div>
               <Bar v={stats.overall} />
@@ -86,32 +90,35 @@ const Quest = () => {
 
         {tab === "quests" && (
           <div className="animate-fade-up">
-            <h2 className="font-display text-2xl font-bold text-center">QUESTS</h2>
-            <p className="text-center text-sm text-muted-foreground mb-2">⭐ {stats.stars} / {MAX_STARS} stars collected</p>
-            <p className="text-center text-xs text-muted-foreground mb-4">Tap any unlocked circle to play or replay it and earn more stars!</p>
-            <div className="qq-path">
-              {levels.map((lv, idx) => {
-                const un = q.isUnlocked(lv); const best = p.best[lv.number] || 0; const cat = CATEGORIES[lv.category];
-                const isCurrent = un && !best;
-                const offset = [0, 56, 88, 56, 0, -56, -88, -56][idx % 8];
+            <div className="qq-select-heading">
+              <BookOpen className="w-6 h-6 text-primary mx-auto mb-2" />
+              <p className="text-xs font-semibold text-primary mb-1">Boses ng Lalawigan</p>
+              <h2 className="font-display text-3xl font-bold">SELECT LEVELS</h2>
+              <p className="text-sm text-muted-foreground mt-2">⭐ {stats.stars} / {MAX_STARS} stars collected</p>
+            </div>
+            <div className="qq-level-grid">
+              {levels.slice(levelPage * 12, (levelPage + 1) * 12).map((lv) => {
+                const un = q.isUnlocked(lv); const best = p.best[lv.number] || 0;
                 return (
-                  <div key={lv.id} className="qq-path-row" style={{ transform: `translateX(${offset}px)` }}>
-                    <button onClick={() => un ? setPlaying(lv) : setLockInfo(lv)}
+                  <div key={lv.id} className="qq-level-item">
+                    <Button variant="ghost" onClick={() => { sfx.tap(false); un ? setPlaying(lv) : setLockInfo(lv); }}
                       aria-label={`Level ${lv.number}: ${lv.name}${un ? "" : " (locked)"}`}
-                      className={`qq-node ${lv.isMilestone ? "qq-node-gate" : ""} ${un ? (best ? "qq-node-done" : "qq-node-current") : "qq-node-locked"}`}>
-                      {un ? (lv.isMilestone ? "🏆" : best ? <Check className="w-7 h-7" /> : cat.icon) : <Lock className="w-6 h-6" />}
-                      {isCurrent && <span className="qq-node-ring" />}
-                    </button>
-                    <div className="qq-node-label">
-                      <div className="text-[9px] font-bold tracking-[0.15em] text-muted-foreground">LEVEL {lv.number}{lv.isMilestone && " · GATE"}</div>
-                      <div className="text-xs font-bold leading-tight max-w-[110px] mx-auto truncate">{lv.name}</div>
-                      {best > 0 && <Stars n={best} size="w-3 h-3" />}
-                      {!un && <div className="text-[9px] font-bold text-muted-foreground">{lv.isMilestone ? `${lv.requiredStars}⭐ NEEDED` : "LOCKED"}</div>}
-                    </div>
+                      title={lv.name}
+                      className={`qq-level-tile ${un ? "qq-level-open" : "qq-level-locked"} ${lv.isMilestone ? "qq-level-gate" : ""} ${lv.number === nextLevel.number ? "qq-level-next" : ""}`}>
+                      <Leaf className="qq-level-leaf" aria-hidden="true" />
+                      {un ? <span className="font-display qq-level-number">{lv.number}</span> : <><span className="qq-level-small-number">{lv.number}</span><Lock className="qq-level-lock" /></>}
+                      {best > 0 && <Check className="qq-level-check" aria-hidden="true" />}
+                      {lv.isMilestone && <Trophy className="qq-level-trophy" aria-hidden="true" />}
+                    </Button>
+                    <Stars n={best} size="w-4 h-4" />
                   </div>
                 );
               })}
-              <div className="qq-path-end">🚩</div>
+            </div>
+            <div className="qq-level-pagination">
+              <Button variant="outline" size="icon" className="qq-page-arrow" disabled={levelPage === 0} onClick={() => setLevelPage((v) => v - 1)} aria-label="Previous levels" title="Previous levels"><ArrowLeft /></Button>
+              <div className="text-center"><div className="text-sm font-bold">{levelPage * 12 + 1}–{Math.min((levelPage + 1) * 12, levels.length)}</div><div className="text-xs text-muted-foreground">Page {levelPage + 1} of {pageCount}</div></div>
+              <Button variant="outline" size="icon" className="qq-page-arrow" disabled={levelPage === pageCount - 1} onClick={() => setLevelPage((v) => v + 1)} aria-label="Next levels" title="Next levels"><ArrowRight /></Button>
             </div>
           </div>
         )}
